@@ -4,42 +4,29 @@
 #define MAX_SIZE 37
 
 int main(int argc, char **argv) {
-  char str1[MAX_SIZE], str2[MAX_SIZE];
-  int i; // index of str
+  char str[2][MAX_SIZE];
   int c; // character storage
-  long lLeft = 0, lRight = 0, lSecond = 0;
+  long lLeft = 0, lRight = 0;
   bool passed = false;
-  i = 0;
   while((c = std::cin.get()) != '\n' && c != EOF) {
-    str1[i++] = c;
     if(c == '|')
       passed = true;
-    else if(passed) {
-      ++lRight;
-    }
-    else {
-      ++lLeft;
-    }
+    else if(passed)
+      str[1][lRight++] = c;
+    else
+      str[0][lLeft++] = c;
   }
-  str1[i] = '\0';
-  i = 0;
   while((c = std::cin.get()) != '\n' && c != EOF) {
-    str2[i++] = c;
-    ++lSecond;
-  }
-  str2[i] = '\0';
-  if(lLeft > lRight) {
-    if(lLeft != lRight + lSecond)
-      printf("Impossible\n");
+    if(lLeft > lRight)
+      str[1][lRight++] = c;
     else
-      printf("%s%s\n", str1, str2);
+      str[0][lLeft++] = c;
   }
-  else {
-    if(lRight != lLeft + lSecond) {
-      printf("Impossible\n");
-    }
-    else
-      printf("%s%s\n", str2, str1);
-  }
+  str[0][lLeft] = '\0';
+  str[1][lRight] = '\0';
+  if(lLeft != lRight)
+    printf("Impossible\n");
+  else
+    printf("%s|%s\n", str[0], str[1]);
   return 0;
 }
