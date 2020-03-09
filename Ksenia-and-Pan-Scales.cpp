@@ -1,13 +1,11 @@
 // [https://codeforces.com/contest/382/problem/A]
 #include <iostream>
-#include <fstream>
 
 int main(int argc, char **argv) {
-  std::ifstream is = std::cin;
   int c; // character storage
   long lLeft = 0, lRight = 0, lSecond = 0;
   bool passed = false;
-  while((c = is.get()) != EOF && c != '\n') {
+  while((c = std::cin.get()) != '\n' && c != EOF) {
     if(c == '|')
       passed = true;
     else if(passed) {
@@ -17,16 +15,16 @@ int main(int argc, char **argv) {
       ++lLeft;
     }
   }
-  while((c = is.get()) != EOF) {
+  while((c = std::cin.get()) != '\n' && c != EOF) {
     ++lSecond;
   }
   if(lLeft > lRight) {
     if(lLeft != lRight + lSecond)
-      printf("Impossible");
+      printf("Impossible\n");
   }
   else {
     if(lRight != lLeft + lSecond) {
-      printf("Impossible");
+      printf("Impossible\n");
     }
   }
   return 0;
